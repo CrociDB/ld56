@@ -148,7 +148,7 @@ class Fish {
         center_count++;
       }
 
-      if (d < 50) {
+      if (d < 100) {
         avoidance = avoidance.sub(fishlist[f].pos.sub(this.pos));
       }
     }

@@ -139,7 +139,7 @@ class GameMap {
   }
 
   render_radar(player, camera, ctx) {
-    ctx.strokeStyle = "#D1798B07";
+    ctx.strokeStyle = "#D1798B20";
 
     for (let f in this.fishes) {
       if (!this.fishes[f].active) continue;
