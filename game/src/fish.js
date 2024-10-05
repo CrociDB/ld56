@@ -221,6 +221,6 @@ class Fish {
 
   die() {
     this.active = false;
-    game.fishDie(this);
+    Game.instance.fishDie(this);
   }
 }

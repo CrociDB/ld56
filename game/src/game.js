@@ -1,5 +1,7 @@
 class Game {
   constructor() {
+    Game.instance = this;
+
     // Get DOM stuff
     this.canvas = gId("game");
     this.ctx = this.canvas.getContext("2d");
@@ -23,17 +25,7 @@ class Game {
     this.fish.pos.set(0, 0);
 
     // Map
-    this.map = new Map(2000);
-
-    // Main loop
-    window.requestAnimationFrame(this.update.bind(this));
-  }
-
-  update() {
-    this.update_logic();
-    this.update_render();
-
-    window.requestAnimationFrame(this.update.bind(this));
+    this.map = new GameMap(2000);
   }
 
   update_logic() {
@@ -90,4 +82,3 @@ class Game {
   }
 }
 
-let game = new Game();

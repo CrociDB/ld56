@@ -1,6 +1,6 @@
 const FISHES = 20;
 
-class Map {
+class GameMap {
   constructor(size) {
     this.size = size;
 
