@@ -15,7 +15,7 @@ class Game {
         this.fish.pos.set(0, 0);
 
         // Map
-        this.map = new Map(20000, 20000);
+        this.map = new Map(2000);
 
         // Main loop
         window.requestAnimationFrame(this.update.bind(this));
@@ -44,7 +44,7 @@ class Game {
     
     update_render() {
         // Clear screen
-        this.ctx.fillStyle = "#2A454F";
+        this.ctx.fillStyle = "#842B20";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         // entities
@@ -52,6 +52,9 @@ class Game {
         // camera
         this.ctx.save();
         this.camera.update(this.ctx);
+  
+        // map background
+        this.map.render_background(this.camera, this.ctx);
 
         // player
         this.fish.render(this.ctx);
