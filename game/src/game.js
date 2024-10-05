@@ -14,19 +14,26 @@ class Game {
     this.camera = new Camera(
       0,
       0,
-      2,
+      .5,
       this.canvas.width / 2,
       this.canvas.height / 2,
     );
 
     this.initialized = false;
-    this.level = LEVELS[0];
+    this.currentLevel = 0;
+    this.level = LEVELS[this.currentLevel];
   }
 
   initLevel() {
     // Map
     this.map = new GameMap(this.level);
     this.initialized = true;
+  }
+
+  nextLevel() {
+    this.currentLevel = (this.currentLevel + 1) % LEVELS.length;
+    this.level = LEVELS[this.currentLevel];
+    this.initialized = false;
   }
 
   update_logic() {
@@ -50,16 +57,27 @@ class Game {
 
     if (!this.initialized) {
       this.ctx.font = "70px 'Spicy Rice'";
-      this.ctx.fillStyle = "#842B20";
+      this.ctx.fillStyle = "#ffaaaa";
       this.ctx.textAlign = "center";
-      this.ctx.fillText(this.level.title, this.canvas.width / 2, this.canvas.height / 2 - 40);
-
+      this.ctx.fillText(
+        this.level.title,
+        this.canvas.width / 2,
+        this.canvas.height / 2 - 40,
+      );
 
       this.ctx.font = "30px 'Amatic SC'";
       this.ctx.fillStyle = "#aaaaaa";
-      this.ctx.fillText(this.level.desc, this.canvas.width / 2, this.canvas.height / 2);
+      this.ctx.fillText(
+        this.level.desc,
+        this.canvas.width / 2,
+        this.canvas.height / 2,
+      );
 
-      this.ctx.fillText("Press any key to continue...", this.canvas.width / 2, this.canvas.height / 2 + 300);
+      this.ctx.fillText(
+        "Press any key to continue...",
+        this.canvas.width / 2,
+        this.canvas.height / 2 + 300,
+      );
       this.ctx.restore();
       return;
     }
@@ -80,5 +98,41 @@ class Game {
     if (this.initialized) {
       this.map.renderHud(this.ctx);
     }
+  }
+
+  gameOver() {
+    let that = this;
+    co(function* () {
+      that.particles.emit(
+        that.map.fish.pos.x,
+        that.map.fish.pos.y,
+        0.05,
+        100,
+        "red",
+      );
+      that.camera.shake(40, 200);
+      yield 1.0;
+      that.initialized = false;
+      // yield 1.0;
+      // that.initLevel();
+    });
+  }
+
+  levelWin() {
+    let that = this;
+    co(function* () {
+      for (let i = 0; i < 5; i++) {
+        that.particles.emit(
+          that.map.fish.pos.x + Math.random() * 300,
+          that.map.fish.pos.y + Math.random() * 300,
+          0.05,
+          100,
+          "green",
+        );
+        that.camera.shake(40, 200);
+        yield .4;
+      }
+      that.nextLevel();
+    });
   }
 }

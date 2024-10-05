@@ -180,6 +180,11 @@ class Fish {
         let delta = map.goal.pos.sub(this.pos);
         this.vel = this.vel.add(delta.muls(0.0004));
       }
+    } else {
+      if (this.pos.length() >= map.size) {
+        this.dead = true;
+        Game.instance.gameOver();
+      }
     }
 
     if (fishlist != undefined) {

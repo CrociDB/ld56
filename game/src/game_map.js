@@ -19,36 +19,54 @@ class GameMap {
     this.fish = new Fish();
     this.fish.is_player = true;
     this.fish.pos.set(this.level.spawn.x, this.level.spawn.y);
+    Game.instance.camera.pos = this.fish.pos.muls(1);
+    Game.instance.camera.dist = .5;
 
     this.health = 1;
     this.saved = 0;
+    this.camera_dist_target = this.level.camera_dist;
   }
 
   update() {
-    for (let f in this.fishes) {
-      if (!this.fishes[f].active) continue;
-      this.fishes[f].follow(this.fish.pos, this.fishes);
-      this.fishes[f].update(this);
+    if (!this.fish.dead) {
+      for (let f in this.fishes) {
+        if (!this.fishes[f].active) continue;
+        this.fishes[f].follow(this.fish.pos, this.fishes);
+        this.fishes[f].update(this);
+      }
+
+      if (Game.instance.input.key(Input.UP)) this.fish.thurst(3);
+      if (Game.instance.input.key(Input.DOWN)) console.log("DOWN");
+      if (Game.instance.input.key(Input.LEFT)) this.fish.turn(-0.05);
+      if (Game.instance.input.key(Input.RIGHT)) this.fish.turn(0.05);
+
+      if (Game.instance.input.key(65)) Game.instance.camera.dist += 0.03;
+      if (Game.instance.input.key(83)) Game.instance.camera.dist -= 0.03;
+
+      if (Game.instance.input.key(Input.SPACE)) {
+        this.particles.emit(this.fish.pos.x, this.fish.pos.y, 0.1, 50);
+        Game.instance.camera.shake(100, 500);
+      }
+
+      this.fish.update(this, 4);
+      Game.instance.camera.follow(this.fish.pos);
+
+      this.health = this.fishAlive() / this.level.fish;
+      this.saved = this.fishSaved() / this.level.fish;
+
+      if (this.health < this.level.finish) {
+        this.fish.dead = true;
+        Game.instance.gameOver();
+      }
+
+      if (this.saved >= this.level.finish) {
+        this.fish.dead = true;
+        Game.instance.levelWin();
+      }
+
     }
 
-    if (Game.instance.input.key(Input.UP)) this.fish.thurst(3);
-    if (Game.instance.input.key(Input.DOWN)) console.log("DOWN");
-    if (Game.instance.input.key(Input.LEFT)) this.fish.turn(-0.05);
-    if (Game.instance.input.key(Input.RIGHT)) this.fish.turn(0.05);
-
-    if (Game.instance.input.key(65)) Game.instance.camera.dist += 0.03;
-    if (Game.instance.input.key(83)) Game.instance.camera.dist -= 0.03;
-
-    if (Game.instance.input.key(Input.SPACE)) {
-      this.particles.emit(this.fish.pos.x, this.fish.pos.y, 0.1, 50);
-      Game.instance.camera.shake(100, 500);
-    }
-
-    this.fish.update(this, 4);
-    Game.instance.camera.follow(this.fish.pos);
-
-    this.health = this.fishAlive() / this.level.fish;
-    this.saved = this.fishSaved() / this.level.fish;
+    Game.instance.camera.dist = lerp(Game.instance.camera.dist, this.camera_dist_target, .05);
   }
 
   render_background(camera, ctx) {
@@ -93,8 +111,10 @@ class GameMap {
     }
 
     // player
-    this.fish.render(ctx);
-    this.render_radar(this.fish, Game.instance.camera, ctx);
+    if (!this.fish.dead) {
+      this.fish.render(ctx);
+      this.render_radar(this.fish, Game.instance.camera, ctx);
+    }
   }
 
   renderHud(ctx) {
