@@ -1,5 +1,7 @@
 const LEVELS = [
   {
+    title: "Tutorial",
+    desc: "Using the directional keys, help the fish reach for salvation!",
     size: 1000,
     fish: 10,
     finish: .9,

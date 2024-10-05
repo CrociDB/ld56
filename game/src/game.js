@@ -23,24 +23,27 @@ class Game {
 
     this.health = 1;
     this.saved = 0;
-    this.initLevel(LEVELS[0]);
+    this.level = LEVELS[0];
   }
 
-  initLevel(level) {
-    this.level = level;
+  initLevel() {
     // Fish!
     this.fish = new Fish();
     this.fish.is_player = true;
-    this.fish.pos.set(level.spawn.x, level.spawn.y);
+    this.fish.pos.set(this.level.spawn.x, this.level.spawn.y);
 
     // Map
-    this.map = new GameMap(level);
-
+    this.map = new GameMap(this.level);
     this.initialized = true;
   }
 
   update_logic() {
-    if (!this.initialized) return;
+    if (!this.initialized) {
+      if (this.input.anykey()) {
+        this.initLevel();
+      }
+      return;
+    }
 
     if (this.input.key(Input.UP)) this.fish.thurst(3);
     if (this.input.key(Input.DOWN)) console.log("DOWN");
@@ -65,7 +68,27 @@ class Game {
   }
 
   update_render() {
-    if (!this.initialized) return;
+    this.ctx.save();
+
+    if (!this.initialized) {
+      this.ctx.fillStyle = "black";
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+
+      this.ctx.font = "70px 'Spicy Rice'";
+      this.ctx.fillStyle = "#842B20";
+      this.ctx.textAlign = "center";
+      this.ctx.fillText(this.level.title, this.canvas.width / 2, this.canvas.height / 2 - 40);
+
+
+      this.ctx.font = "30px 'Amatic SC'";
+      this.ctx.fillStyle = "#aaaaaa";
+      this.ctx.fillText(this.level.desc, this.canvas.width / 2, this.canvas.height / 2);
+
+      this.ctx.fillText("Press any key to continue...", this.canvas.width / 2, this.canvas.height / 2 + 300);
+      this.ctx.restore();
+      return;
+    }
 
     // Clear screen
     this.ctx.fillStyle = "#842B20";
@@ -74,7 +97,6 @@ class Game {
     // entities
 
     // camera
-    this.ctx.save();
     this.camera.update(this.ctx);
 
     // map background
@@ -105,7 +127,12 @@ class Game {
     this.ctx.fillRect(50, this.canvas.height - 50, w * this.health, 20);
     this.ctx.fillStyle = "#447755";
     this.ctx.fillRect(50, this.canvas.height - 50, w * this.saved, 20);
-    this.ctx.fillRect(50 + w * this.level.finish - 10, this.canvas.height - 50, 10, 20);
+    this.ctx.fillRect(
+      50 + w * this.level.finish - 10,
+      this.canvas.height - 50,
+      10,
+      20,
+    );
   }
 
   // FX and stuff
