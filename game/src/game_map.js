@@ -26,6 +26,14 @@ class GameMap {
     Game.instance.camera.pos = this.fish.pos.muls(1);
     Game.instance.camera.dist = .5;
 
+    // Bumpers
+    this.bumpers = [];
+    if (this.level.bumpers != undefined) {
+      for (let bp of this.level.bumpers) {
+        this.bumpers.push(new Bumper(bp));
+      }
+    }
+
     this.health = 1;
     this.saved = 0;
     this.camera_dist_target = this.level.camera_dist;
@@ -68,6 +76,10 @@ class GameMap {
         Game.instance.levelWin();
       }
 
+    }
+
+    for (let bp of this.bumpers) {
+      bp.update();
     }
 
     Game.instance.camera.dist = lerp(Game.instance.camera.dist, this.camera_dist_target, .05);
@@ -118,6 +130,10 @@ class GameMap {
 
       this.fish.render(ctx);
       this.render_radar(this.fish, Game.instance.camera, ctx);
+    }
+
+    for (let bp of this.bumpers) {
+      bp.render(ctx);
     }
   }
 

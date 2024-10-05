@@ -187,6 +187,17 @@ class Fish {
       }
     }
 
+    for (let bp of map.bumpers) {
+      let dp = this.pos.dist(bp.pos);
+      if (dp < bp.size) {
+        bp.hit();
+        let d = this.pos.sub(bp.pos).normalize();
+        this.pos = bp.pos.add(d.muls(bp.size));
+        // this.vel = ;
+        this.vel = this.vel.add(d.muls(14).add(this.vel.muls(-2)));
+      }
+    }
+
     if (fishlist != undefined) {
       for (let f in fishlist) {
         if (fishlist[f] == this || !fishlist[f].active) continue;
