@@ -93,4 +93,13 @@ class GameMap {
       ctx.closePath();
     }
   }
+
+  fishAlive() {
+    return this.fishes.filter(f => !f.dead).length;
+  }
+
+  fishSaved() {
+    return this.fishes.filter(f => f.saved).length;
+  }
+
 }

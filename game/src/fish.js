@@ -17,6 +17,8 @@ class Fish {
     this.thrusting = false;
     this.is_player = false;
     this.active = true;
+    this.dead = false;
+    this.saved = false;
   }
 
   render(ctx) {
@@ -229,11 +231,13 @@ class Fish {
   }
 
   die() {
+    this.dead = true;
     this.active = false;
     Game.instance.fishDie(this);
   }
 
   save() {
+    this.saved = true;
     this.active = false;
     Game.instance.fishSave(this);
   }

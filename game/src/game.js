@@ -21,10 +21,13 @@ class Game {
 
     this.initialized = false;
 
+    this.health = 1;
+    this.saved = 0;
     this.initLevel(LEVELS[0]);
   }
 
   initLevel(level) {
+    this.level = level;
     // Fish!
     this.fish = new Fish();
     this.fish.is_player = true;
@@ -56,6 +59,9 @@ class Game {
     this.map.update(this.fish);
     this.camera.follow(this.fish.pos);
     this.particles.update();
+
+    this.health = this.map.fishAlive() / this.level.fish;
+    this.saved = this.map.fishSaved() / this.level.fish;
   }
 
   update_render() {
@@ -85,17 +91,31 @@ class Game {
     this.particles.render();
 
     this.ctx.restore();
+
+    // hud
+    this.renderHud();
+  }
+
+  renderHud() {
+    this.ctx.fillStyle = "#222222";
+
+    let w = this.canvas.width - 100;
+    this.ctx.fillRect(50, this.canvas.height - 50, w, 20);
+    this.ctx.fillStyle = "#444477";
+    this.ctx.fillRect(50, this.canvas.height - 50, w * this.health, 20);
+    this.ctx.fillStyle = "#447755";
+    this.ctx.fillRect(50, this.canvas.height - 50, w * this.saved, 20);
+    this.ctx.fillRect(50 + w * this.level.finish - 10, this.canvas.height - 50, 10, 20);
   }
 
   // FX and stuff
   fishDie(fish) {
-      this.particles.emit(fish.pos.x, fish.pos.y, 0.05, 20, "#FFBBBB");
-      this.camera.shake(20, 100);
+    this.particles.emit(fish.pos.x, fish.pos.y, 0.05, 20, "#FFBBBB");
+    this.camera.shake(20, 100);
   }
-  
+
   fishSave(fish) {
-      this.particles.emit(fish.pos.x, fish.pos.y, 0.1, 30, "#99FF99");
-      this.camera.shake(20, 60);
+    this.particles.emit(fish.pos.x, fish.pos.y, 0.1, 30, "#99FF99");
+    this.camera.shake(20, 60);
   }
 }
-
