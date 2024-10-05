@@ -52,7 +52,7 @@ const CRTShader = {
                     {    
                         float vignette = uv.x * uv.y * ( 1.0 - uv.x ) * ( 1.0 - uv.y );
                         vignette = 1.0 - clamp( pow( 16.0 * vignette, 0.3 ), 0.0, 1.0 );
-                        color += color * vignette * .9;
+                        color += color * vignette * 1.1;
                     }
 
                     void main() {
@@ -97,8 +97,8 @@ function main() {
     0.85,
   );
   bloomPass.threshold = 0.7;
-  bloomPass.strength = 0.7;
-  bloomPass.radius = 0;
+  bloomPass.strength = 0.8;
+  bloomPass.radius = 0.2;
 
   const outputPass = new OutputPass();
 

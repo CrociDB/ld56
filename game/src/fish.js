@@ -138,6 +138,7 @@ class Fish {
 
     for (let f in fishlist) {
       if (fishlist[f] == this || !fishlist[f].active) continue;
+    
       let d = this.pos.dist(fishlist[f].pos);
 
       if (d < 600) {
