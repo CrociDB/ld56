@@ -1,5 +1,5 @@
 const PARTICLES_IN_SYSTEM = 60;
-const PARTICLE_SIZE = 6;
+const PARTICLE_SIZE = 4;
 const PARTICLE_SIZE_HALF = PARTICLE_SIZE / 2;
 
 class ParticlesSystem {
@@ -22,7 +22,7 @@ class ParticlesSystem {
     }
   }
 
-  emit(x, y, acc, lifetime) {
+  emit(x, y, acc, lifetime, color) {
     this.active = true;
 
     this.pos.set(x, y);
@@ -34,6 +34,7 @@ class ParticlesSystem {
       p.vel.set(0, 0);
       p.dir = Math.random() * 2 * Math.PI;
       p.acc = acc + Math.random() * 6;
+      p.color = color;
 
       p.lifetime = lifetime + Math.random() * lifetime * 1.2;
     }
@@ -49,7 +50,7 @@ class ParticlesSystem {
       p.vel.y += Math.cos(p.dir) * p.acc;
 
       p.pos = p.pos.add(p.vel);
-      p.vel = p.vel.muls(0.42);
+      p.vel = p.vel.muls(0.22);
 
       if (p.lifetime <= 0) p.active = false;
     }
@@ -59,7 +60,7 @@ class ParticlesSystem {
     for (let p of this.particles) {
       if (!p.active) continue;
 
-      ctx.fillStyle = "white";
+      ctx.fillStyle = p.color;
       ctx.fillRect(p.pos.x - PARTICLE_SIZE_HALF, p.pos.y - PARTICLE_SIZE_HALF, PARTICLE_SIZE, PARTICLE_SIZE);
     }
   }
@@ -71,9 +72,9 @@ class ParticleManager {
     this.systems = [];
   }
 
-  emit(x, y, acc, lifetime) {
+  emit(x, y, acc, lifetime, color) {
     let system = new ParticlesSystem();
-    system.emit(x, y, acc, lifetime);
+    system.emit(x, y, acc, lifetime, color);
     this.systems.push(system);
   }
 

@@ -170,6 +170,14 @@ class Fish {
       if (this.pos.length() >= map.size) {
         this.die();
       }
+
+      let distanceGoal = this.pos.dist(map.goal.pos);
+      if (distanceGoal < map.goal.size * .8) {
+        this.save();
+      } else if (distanceGoal < map.goal.size * 3) {
+        let delta = map.goal.pos.sub(this.pos);
+        this.vel = this.vel.add(delta.muls(.0004));
+      }
     }
 
     if (fishlist != undefined) {
@@ -223,5 +231,10 @@ class Fish {
   die() {
     this.active = false;
     Game.instance.fishDie(this);
+  }
+
+  save() {
+    this.active = false;
+    Game.instance.fishSave(this);
   }
 }

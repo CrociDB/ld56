@@ -1,17 +1,17 @@
-const FISHES = 50;
-
 class GameMap {
-  constructor(size) {
-    this.size = size;
+  constructor(level) {
+    this.level = level;
+    this.size = this.level.size;
+    this.goal = this.level.goal;
 
     this.fishes = [];
 
-    for (let f = 0; f < FISHES; f++) {
+    for (let f = 0; f < this.level.fish; f++) {
       this.fishes[f] = new Fish();
       this.fishes[f].color = "#D1798B";
       this.fishes[f].pos.set(
-        Math.random() * size - size / 2,
-        Math.random() * size - size / 2,
+        Math.random() * this.size - this.size / 2,
+        Math.random() * this.size - this.size / 2,
       );
     }
   }
@@ -52,6 +52,13 @@ class GameMap {
   }
 
   render(ctx) {
+    // goal
+    ctx.fillStyle = "#417F68";
+    ctx.beginPath();
+    ctx.arc(this.goal.pos.x, this.goal.pos.y, this.goal.size, 0, 2*Math.PI);
+    ctx.fill();
+    ctx.closePath();
+
     for (let f in this.fishes) {
       if (!this.fishes[f].active) continue;
       this.fishes[f].render(ctx);

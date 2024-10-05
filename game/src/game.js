@@ -19,16 +19,26 @@ class Game {
       this.canvas.height / 2,
     );
 
+    this.initialized = false;
+
+    this.initLevel(LEVELS[0]);
+  }
+
+  initLevel(level) {
     // Fish!
     this.fish = new Fish();
     this.fish.is_player = true;
-    this.fish.pos.set(0, 0);
+    this.fish.pos.set(level.spawn.x, level.spawn.y);
 
     // Map
-    this.map = new GameMap(2000);
+    this.map = new GameMap(level);
+
+    this.initialized = true;
   }
 
   update_logic() {
+    if (!this.initialized) return;
+
     if (this.input.key(Input.UP)) this.fish.thurst(3);
     if (this.input.key(Input.DOWN)) console.log("DOWN");
     if (this.input.key(Input.LEFT)) this.fish.turn(-0.05);
@@ -49,6 +59,8 @@ class Game {
   }
 
   update_render() {
+    if (!this.initialized) return;
+
     // Clear screen
     this.ctx.fillStyle = "#842B20";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -62,12 +74,12 @@ class Game {
     // map background
     this.map.render_background(this.camera, this.ctx);
 
-    // player
-    this.fish.render(this.ctx);
-
     // map
     this.map.render(this.ctx);
     this.map.render_radar(this.fish, this.camera, this.ctx);
+
+    // player
+    this.fish.render(this.ctx);
 
     // particles
     this.particles.render();
@@ -77,8 +89,13 @@ class Game {
 
   // FX and stuff
   fishDie(fish) {
-      this.particles.emit(fish.pos.x, fish.pos.y, 0.1, 30);
+      this.particles.emit(fish.pos.x, fish.pos.y, 0.05, 20, "#FFBBBB");
       this.camera.shake(20, 100);
+  }
+  
+  fishSave(fish) {
+      this.particles.emit(fish.pos.x, fish.pos.y, 0.1, 30, "#99FF99");
+      this.camera.shake(20, 60);
   }
 }
 

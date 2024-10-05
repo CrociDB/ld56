@@ -96,9 +96,9 @@ function main() {
     0.4,
     0.85,
   );
-  bloomPass.threshold = 0.7;
-  bloomPass.strength = 0.8;
-  bloomPass.radius = 0.2;
+  bloomPass.threshold = 0.3;
+  bloomPass.strength = 0.4;
+  bloomPass.radius = 0.1;
 
   const outputPass = new OutputPass();
 
