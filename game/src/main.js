@@ -35,7 +35,7 @@ const CRTShader = {
                     vec2 curve(vec2 uv)
                     {
                         uv = uv * 2.0 - 1.0;
-                        vec2 offset = abs(uv.yx) * vec2(curvature.x, curvature.y);
+                        vec2 offset = abs(uv.yx) * vec2(curvature.x + sin(iTime * 20.) * .004, curvature.y + cos(iTime * 20.) * .004);
                         uv = uv + uv * offset * offset;
                         uv = uv * 0.5 + 0.5;
                         return uv;
@@ -57,7 +57,10 @@ const CRTShader = {
 
                     void main() {
                         vec2 uv = curve(vUv);
+                        float d = pow(length(uv - vec2(.5, .5)), 1.2);
                         vec4 tex = texture2D( tDiffuse, uv );
+                        tex.r = texture2D(tDiffuse, uv - vec2(.008 * d, .003 * d)).r;
+                        tex.b = texture2D(tDiffuse, uv + vec2(.008 * d, .003 * d)).b;
                         
                         tex = tex + vec4(.1, .1, .1, 0);
 
@@ -97,8 +100,8 @@ function main() {
     0.85,
   );
   bloomPass.threshold = 0.3;
-  bloomPass.strength = 0.4;
-  bloomPass.radius = 0.1;
+  bloomPass.strength = 0.5;
+  bloomPass.radius = 0.3;
 
   const outputPass = new OutputPass();
 
