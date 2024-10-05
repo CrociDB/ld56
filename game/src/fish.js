@@ -108,7 +108,7 @@ class Fish {
     center = center.x == center.y && center.x == 0 ? target : center;
 
     let t = center.add(avoid);
-    if (this.pos.dist(target) < 3000) {
+    if (this.pos.dist(target) < 1500) {
       t = target.muls(2).add(center).muls(0.3333).add(avoid);
     }
 

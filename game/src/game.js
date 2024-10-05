@@ -121,16 +121,16 @@ class Game {
   levelWin() {
     let that = this;
     co(function* () {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 9; i++) {
         that.particles.emit(
-          that.map.fish.pos.x + Math.random() * 300,
-          that.map.fish.pos.y + Math.random() * 300,
+          that.camera.pos.x - (Math.random() * 800) + 400,
+          that.camera.pos.y - (Math.random() * 800) + 400,
           0.05,
-          100,
-          "green",
+          80,
+          "#AAFFAA",
         );
-        that.camera.shake(40, 200);
-        yield .4;
+        that.camera.shake(50, 300);
+        yield .3;
       }
       that.nextLevel();
     });

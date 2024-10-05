@@ -63,8 +63,8 @@ const CRTShader = {
                         tex.b = texture2D(tDiffuse, uv + vec2(.008 * d, .003 * d)).b;
                         
                         tex = tex + vec4(.1, .1, .1, 0);
+                        tex = vec4(pow(tex.rgb, vec3(1.0 / .4)), 1.0);
 
-tex = vec4(pow(tex.rgb, vec3(1.0 / .4)), 1.0);
                         scanline(tex.xyz, uv);
                         vignete(tex.xyz, uv);
 

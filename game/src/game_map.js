@@ -6,13 +6,17 @@ class GameMap {
 
     this.fishes = [];
 
-    for (let f = 0; f < this.level.fish; f++) {
-      this.fishes[f] = new Fish();
-      this.fishes[f].color = "#D1798B";
-      this.fishes[f].pos.set(
-        Math.random() * this.size - this.size / 2,
-        Math.random() * this.size - this.size / 2,
-      );
+    let fc = 0;
+    for (let sp of this.level.fish_spawn_points) {
+      for (let f = 0; f < this.level.fish / this.level.fish_spawn_points.length; f++) {
+        this.fishes[fc] = new Fish();
+        this.fishes[fc].color = "#D1798B";
+        this.fishes[fc].pos.set(
+          sp.pos.x + Math.random() * sp.size - sp.size / 2,
+          sp.pos.y + Math.random() * sp.size - sp.size / 2,
+        );
+        fc++;
+      }
     }
 
     // Fish!
@@ -173,7 +177,7 @@ class GameMap {
 
   // FX and stuff
   fishDie(fish) {
-    Game.instance.particles.emit(fish.pos.x, fish.pos.y, 0.05, 20, "#FFBBBB");
+    Game.instance.particles.emit(fish.pos.x, fish.pos.y, 0.05, 20, "#FF7777");
     Game.instance.camera.shake(20, 100);
   }
 
