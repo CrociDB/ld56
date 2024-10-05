@@ -88,7 +88,7 @@ function main() {
   let renderPass = new RenderPass(scene, camera);
 
   const crtShader = new ShaderPass(CRTShader);
-  crtShader.uniforms["curvature"].value = [0.3, 0.3];
+  crtShader.uniforms["curvature"].value = [0.35, 0.35];
 
   let bloomPass = new UnrealBloomPass(
     new THREE.Vector2(WIDTH, HEIGHT),
@@ -96,7 +96,7 @@ function main() {
     0.4,
     0.85,
   );
-  bloomPass.threshold = 0.9;
+  bloomPass.threshold = 0.7;
   bloomPass.strength = 0.7;
   bloomPass.radius = 0;
 
