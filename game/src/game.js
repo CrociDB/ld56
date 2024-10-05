@@ -44,7 +44,10 @@ class Game {
     if (this.input.key(65)) this.camera.dist += 0.03;
     if (this.input.key(83)) this.camera.dist -= 0.03;
 
-    if (this.input.key(Input.SPACE)) this.particles.emit(this.fish.pos.x, this.fish.pos.y, .1, 50);
+    if (this.input.key(Input.SPACE)) {
+     this.particles.emit(this.fish.pos.x, this.fish.pos.y, .1, 50);
+      this.camera.shake(100, 500);
+    }
 
     this.fish.update(this.map.fishes, 4);
     this.map.update(this.fish);
