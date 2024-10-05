@@ -121,6 +121,7 @@ function main() {
   }
 
   function render() {
+    requestAnimationFrame(render);
     time += 0.016;
     game.update_render();
     crtShader.uniforms["iTime"].value = time;
@@ -132,10 +133,9 @@ function main() {
 
     // renderer.render(scene, camera);
     composer.render();
-    requestAnimationFrame(render);
   }
 
-  setInterval(update, 0.016);
+  setInterval(update, (1.0 / 60) * 1000);
   requestAnimationFrame(render);
 }
 main();

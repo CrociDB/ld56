@@ -1,4 +1,4 @@
-const FISHES = 20;
+const FISHES = 50;
 
 class GameMap {
   constructor(size) {

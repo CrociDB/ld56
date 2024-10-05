@@ -2,7 +2,7 @@ class Fish {
   constructor() {
     this.pos = new V2d(0, 0);
     this.vel = new V2d(0, 0);
-    this.spd = 0.05;
+    this.spd = 0.1;
     this.rot = 0;
     this.forward = new V2d(0, 0);
     this.time_offset = Math.random() * 20;
@@ -137,7 +137,7 @@ class Fish {
     let avoidance = new V2d(0, 0);
 
     for (let f in fishlist) {
-      if (fishlist[f] == this) continue;
+      if (fishlist[f] == this || !fishlist[f].active) continue;
       let d = this.pos.dist(fishlist[f].pos);
 
       if (d < 600) {
