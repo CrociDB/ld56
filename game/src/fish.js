@@ -140,7 +140,7 @@ class Fish {
 
     for (let f in fishlist) {
       if (fishlist[f] == this || !fishlist[f].active) continue;
-    
+
       let d = this.pos.dist(fishlist[f].pos);
 
       if (d < 600) {
@@ -160,7 +160,7 @@ class Fish {
 
   update(map, strength) {
     if (!this.active) return;
-  
+
     let fishlist = map.fishes;
     this.forward = new V2d(0, 1);
     this.forward.setAngle(this.rot - Math.PI / 2);
@@ -174,11 +174,11 @@ class Fish {
       }
 
       let distanceGoal = this.pos.dist(map.goal.pos);
-      if (distanceGoal < map.goal.size * .8) {
+      if (distanceGoal < map.goal.size * 0.8) {
         this.save();
       } else if (distanceGoal < map.goal.size * 3) {
         let delta = map.goal.pos.sub(this.pos);
-        this.vel = this.vel.add(delta.muls(.0004));
+        this.vel = this.vel.add(delta.muls(0.0004));
       }
     }
 
@@ -233,12 +233,12 @@ class Fish {
   die() {
     this.dead = true;
     this.active = false;
-    Game.instance.fishDie(this);
+    Game.instance.map.fishDie(this);
   }
 
   save() {
     this.saved = true;
     this.active = false;
-    Game.instance.fishSave(this);
+    Game.instance.map.fishSave(this);
   }
 }
