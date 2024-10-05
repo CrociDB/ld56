@@ -109,13 +109,13 @@ class GameMap {
     ctx.fill();
     ctx.closePath();
 
-    for (let f in this.fishes) {
-      if (!this.fishes[f].active) continue;
-      this.fishes[f].render(ctx);
-    }
-
     // player
     if (!this.fish.dead) {
+      for (let f in this.fishes) {
+        if (!this.fishes[f].active) continue;
+        this.fishes[f].render(ctx);
+      }
+
       this.fish.render(ctx);
       this.render_radar(this.fish, Game.instance.camera, ctx);
     }

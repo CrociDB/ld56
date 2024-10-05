@@ -33,8 +33,8 @@ class Camera {
       );
     }
 
-    const shakeOffsetX = this.shakeStrength * Math.random();
-    const shakeOffsetY = this.shakeStrength * Math.random();
+    const shakeOffsetX = (this.shakeStrength * Math.random()) - this.shakeStrength / 2;
+    const shakeOffsetY = (this.shakeStrength * Math.random()) - this.shakeStrength / 2;
 
     ctx.scale(s, s);
     ctx.translate(

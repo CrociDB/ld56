@@ -57,10 +57,10 @@ const CRTShader = {
 
                     void main() {
                         vec2 uv = curve(vUv);
-                        float d = pow(length(uv - vec2(.5, .5)), 1.2);
+                        float d = pow(length(uv - vec2(.5, .5)), 1.2) + .05;
                         vec4 tex = texture2D( tDiffuse, uv );
-                        tex.r = texture2D(tDiffuse, uv - vec2(.008 * d, .003 * d)).r;
-                        tex.b = texture2D(tDiffuse, uv + vec2(.008 * d, .003 * d)).b;
+                        tex.r = texture2D(tDiffuse, uv - vec2(.006 * d, .003 * d)).r;
+                        tex.b = texture2D(tDiffuse, uv + vec2(.006 * d, .003 * d)).b;
                         
                         tex = tex + vec4(.1, .1, .1, 0);
                         tex = vec4(pow(tex.rgb, vec3(1.0 / .4)), 1.0);
