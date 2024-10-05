@@ -18,8 +18,9 @@ class Map {
 
   update(player) {
     for (let f in this.fishes) {
+      if (!this.fishes[f].active) continue;
       this.fishes[f].follow(player.pos, this.fishes);
-      this.fishes[f].update(this.fishes);
+      this.fishes[f].update(this);
     }
   }
 
@@ -34,7 +35,7 @@ class Map {
 
     const distance = 150;
     const lines = this.size * 2 / distance;
-    for (let i = 0; i < lines; i++) {
+    for (let i = 1; i < lines; i++) {
       ctx.beginPath();
       let x = (i - (lines / 2)) * distance;
       ctx.moveTo(x, -this.size);
@@ -52,6 +53,7 @@ class Map {
 
   render(ctx) {
     for (let f in this.fishes) {
+      if (!this.fishes[f].active) continue;
       this.fishes[f].render(ctx);
     }
   }
@@ -60,6 +62,7 @@ class Map {
     ctx.strokeStyle = "#D1798B07";
 
     for (let f in this.fishes) {
+      if (!this.fishes[f].active) continue;
       let delta = this.fishes[f].pos.sub(player.pos);
       let dirangle = Math.atan2(delta.y, delta.x);
 

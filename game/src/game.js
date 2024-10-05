@@ -19,6 +19,7 @@ class Game {
 
     // Fish!
     this.fish = new Fish();
+    this.fish.is_player = true;
     this.fish.pos.set(0, 0);
 
     // Map
@@ -45,11 +46,11 @@ class Game {
     if (this.input.key(83)) this.camera.dist -= 0.03;
 
     if (this.input.key(Input.SPACE)) {
-     this.particles.emit(this.fish.pos.x, this.fish.pos.y, .1, 50);
+      this.particles.emit(this.fish.pos.x, this.fish.pos.y, 0.1, 50);
       this.camera.shake(100, 500);
     }
 
-    this.fish.update(this.map.fishes, 4);
+    this.fish.update(this.map, 4);
     this.map.update(this.fish);
     this.camera.follow(this.fish.pos);
     this.particles.update();
@@ -81,8 +82,12 @@ class Game {
 
     this.ctx.restore();
   }
+
+  // FX and stuff
+  fishDie(fish) {
+      this.particles.emit(fish.pos.x, fish.pos.y, 0.1, 30);
+      this.camera.shake(20, 100);
+  }
 }
 
-(function () {
-  new Game();
-})();
+let game = new Game();
