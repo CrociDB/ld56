@@ -22,13 +22,17 @@ class Game {
     this.initialized = false;
     this.currentLevel = 0;
     this.level = LEVELS[this.currentLevel];
-    this.playMusic(100);
+    this.playMusic(22050);
 
     this.frames = 0;
+
+    this.menu = true;
+    this.menu_background = 1;
+    this.menu_moving = false;
   }
 
   playMusic(freq) {
-    // console.dir(this.music);
+    console.dir(freq);
     if (this.pzmusic == undefined) {
       this.pzmusic = new Pizzicato.Sound(
         {
@@ -38,7 +42,7 @@ class Game {
             loop: true,
           },
         },
-        this.playMusic.bind(this),
+        this.playMusic.bind(this, freq),
       );
 
       this.musicLowPass = new Pizzicato.Effects.LowPassFilter({
@@ -75,6 +79,7 @@ class Game {
   }
 
   nextLevel() {
+    this.playMusic(100);
     this.currentLevel = (this.currentLevel + 1) % LEVELS.length;
     this.level = LEVELS[this.currentLevel];
     this.initialized = false;
@@ -82,6 +87,13 @@ class Game {
 
   update_logic() {
     this.frames++;
+
+    if (this.menu) {
+      if (this.input.anykey() && !this.menu_moving) {
+        this.closeMenu();
+      }
+      return;
+    }
 
     if (!this.initialized) {
       if (this.input.anykey()) {
@@ -96,6 +108,49 @@ class Game {
 
   update_render() {
     this.ctx.save();
+
+    if (this.menu) {
+      this.ctx.fillStyle = `rgb(${this.menu_background * 45}, ${this.menu_background * 81}, ${this.menu_background * 100})`;
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+      this.ctx.fillStyle = `rgb(${this.menu_background * 132}, ${this.menu_background * 43}, ${this.menu_background * 32})`;
+      this.ctx.beginPath();
+      this.ctx.arc(
+        this.canvas.width / 2,
+        this.canvas.height / 2,
+        300,
+        0,
+        2 * Math.PI,
+      );
+      this.ctx.fill();
+      this.ctx.closePath();
+
+      this.ctx.font = "300px 'Spicy Rice'";
+      this.ctx.fillStyle = "#aa8888";
+      this.ctx.textAlign = "center";
+      const t = "Fish\nRescue";
+      const text = t.split("\n");
+      for (let t in text) {
+        const x =
+          t % 2 == 0 ? -Math.pow(1 - this.menu_background, 3) : Math.pow(1 - this.menu_background, 3) * .7;
+        this.ctx.fillText(
+          text[t],
+          this.canvas.width / 2 + x * 180,
+          this.canvas.height / 2 + t * 200 - 50,
+        );
+      }
+
+      this.ctx.font = "30px 'Amatic SC'";
+      this.ctx.fillStyle = "#ffaaaa";
+      this.ctx.textAlign = "center";
+      this.ctx.fillText(
+        "a game by Bruno Croci",
+        this.canvas.width / 2,
+        this.canvas.height / 2 + 220 + Math.pow((1 - this.menu_background), 5) * 200,
+      );
+
+      return;
+    }
 
     // Clear screen
     this.ctx.fillStyle = "#842B20";
@@ -191,6 +246,21 @@ class Game {
         yield 0.3;
       }
       that.nextLevel();
+    });
+  }
+
+  closeMenu() {
+    let that = this;
+    this.menu_moving = true;
+    co(function* () {
+      yield 0.2;
+      let t = 60;
+      for (let i = 0; i < t; i++) {
+        that.menu_background = lerp(that.menu_background, 0, i / t);
+        yield 0.04;
+      }
+      that.menu = false;
+      that.menu_moving = false;
       that.playMusic(100);
     });
   }
