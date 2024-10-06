@@ -21,11 +21,11 @@ class Game {
 
     this.initialized = false;
 
-    this.currentLevel = 0;
     const savedLevel = localStorage.getItem("fishrescue_level", "");
     if (savedLevel !== null) {
       this.currentLevel = parseInt(savedLevel);
     }
+    this.currentLevel = 5;
     this.level = LEVELS[this.currentLevel];
 
     this.frames = 0;

@@ -186,7 +186,7 @@ const LEVELS = [
   },
   {
     title: "Gravity or Grave",
-    desc: "Go slow and always be careful",
+    desc: "Gravitators can sometimes oscilate sizes. Wait for the correct moment to navigate",
     camera_dist: 2.7,
     size: 3500,
     fish: 16,
@@ -194,19 +194,19 @@ const LEVELS = [
     spawn: new V2d(0, 0),
     fish_spawn_points: [
       {
-        pos: new V2d(-2000, -2000),
+        pos: new V2d(-1800, -1800),
         size: 100,
       },
       {
-        pos: new V2d(-2000, 2000),
+        pos: new V2d(-1800, 1800),
         size: 100,
       },
       {
-        pos: new V2d(2000, -2000),
+        pos: new V2d(1800, -1800),
         size: 100,
       },
       {
-        pos: new V2d(2000, 2000),
+        pos: new V2d(1800, 1800),
         size: 100,
       },
     ],
@@ -231,19 +231,23 @@ const LEVELS = [
     gravitators: [
       {
         pos: new V2d(-900, 0),
-        size: 250,
+        size: 150,
+        growing: 2.5,
       },
       {
         pos: new V2d(900, 0),
-        size: 250,
+        size: 150,
+        growing: 2.5,
       },
       {
         pos: new V2d(0, -900),
-        size: 250,
+        size: 150,
+        growing: 2.5,
       },
       {
         pos: new V2d(0, 900),
-        size: 250,
+        size: 150,
+        growing: 2.5,
       },
     ],
     goal: {
