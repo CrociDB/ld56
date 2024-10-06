@@ -20,7 +20,7 @@ class Game {
     );
 
     this.initialized = false;
-    this.currentLevel = 0;
+    this.currentLevel = 4;
     this.level = LEVELS[this.currentLevel];
     this.playMusic(100);
 

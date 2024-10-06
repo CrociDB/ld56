@@ -141,6 +141,49 @@ const LEVELS = [
       size: 100,
     },
   },
+  {
+    title: "Double Gravity",
+    desc: "Can they cancel each other?",
+    camera_dist: 2.0,
+    size: 2600,
+    fish: 12,
+    finish: 0.7,
+    spawn: new V2d(0, 2100),
+    fish_spawn_points: [
+      {
+        pos: new V2d(0, -1900),
+        size: 100,
+      },
+    ],
+    bumpers: [
+      {
+        pos: new V2d(300, 2100),
+        size: 100,
+      },
+      {
+        pos: new V2d(-300, 2100),
+        size: 100,
+      },
+      {
+        pos: new V2d(0, 1600),
+        size: 100,
+      },
+    ],
+    gravitators: [
+      {
+        pos: new V2d(-1500, 0),
+        size: 650,
+      },
+      {
+        pos: new V2d(1500, 0),
+        size: 650,
+      },
+    ],
+    goal: {
+      pos: new V2d(0, 2100),
+      size: 100,
+    },
+  },
 ];
 
 const SOUNDS = {
