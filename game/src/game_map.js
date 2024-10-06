@@ -177,16 +177,16 @@ class GameMap {
       ctx.closePath();
     }
 
+    for (let c of this.cages) {
+      c.render(ctx);
+    }
+
     for (let bp of this.bumpers) {
       bp.render(ctx);
     }
 
     for (let gp of this.gravitators) {
       gp.render(ctx);
-    }
-
-    for (let c of this.cages) {
-      c.render(ctx);
     }
 
     // player

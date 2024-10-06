@@ -6,7 +6,8 @@ class Cage {
     this.fishes = [];
     this.activated = false;
     this.destroyed = false;
-    this.total_total = this.total = 1.0;
+    this.point = this.key;
+    this.dir = this.key.sub(this.pos);
   }
 
   distToFish(fish) {
@@ -22,7 +23,6 @@ class Cage {
   update() {}
 
   render(ctx) {
-    this.total = lerp(this.total, this.total_total, 0.05);
     if (this.destroyed) return;
 
     ctx.lineWidth = 10;
@@ -34,19 +34,11 @@ class Cage {
     ctx.fill();
     ctx.closePath();
 
-    let delta = this.key.sub(this.pos);
-    let posout = this.pos.add(delta.normalize().muls(this.size));
-
-    let p =
-      this.total == 1
-        ? this.key
-        : delta
-            .normalize()
-            .muls(this.total * (delta.length() - this.size * 1.9));
+    let posout = this.pos.add(this.dir.normalize().muls(this.size));
 
     ctx.beginPath();
     ctx.moveTo(posout.x, posout.y);
-    ctx.lineTo(p.x, p.y);
+    ctx.lineTo(this.point.x, this.point.y);
     ctx.stroke();
     ctx.closePath();
 
@@ -69,11 +61,7 @@ class Cage {
       playaudio(SOUNDS.key_picked);
 
       that.activated = true;
-      let t = 8;
-      for (let i = 0; i < t; i++) {
-        that.total_total = (t - i) / t;
-        yield 0.06;
-      }
+      yield .2;
 
       for (let a = 0; a < 5; a++) {
         Game.instance.particles.emit(

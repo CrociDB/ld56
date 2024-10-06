@@ -228,7 +228,7 @@ class Fish {
           this.pos = c.pos.add(d.muls(c.size));
         }
 
-        if (!c.activated) {
+        if (!c.activated && this.is_player) {
           dp = this.pos.dist(c.key);
           if (dp < 80) {
             c.hit();

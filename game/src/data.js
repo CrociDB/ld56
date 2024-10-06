@@ -276,8 +276,7 @@ const LEVELS = [
         key: new V2d(800, 0),
       },
     ],
-    bumpers: [
-    ],
+    bumpers: [],
     gravitators: [
       {
         pos: new V2d(-400, -800),
@@ -302,6 +301,54 @@ const LEVELS = [
     ],
     goal: {
       pos: new V2d(-1200, 0),
+      size: 250,
+    },
+  },
+  {
+    title: "Cages all around",
+    desc: "More fish are locked, hurry, save them!",
+    camera_dist: 2.0,
+    size: 2200,
+    fish: 12,
+    finish: 0.8,
+    spawn: new V2d(0, -1600),
+    fish_spawn_points: [
+      {
+        pos: new V2d(1000, -1000),
+        size: 100,
+      },
+      {
+        pos: new V2d(-1000, -1000),
+        size: 100,
+      },
+    ],
+    cages: [
+      {
+        pos: new V2d(1000, -1000),
+        size: 150,
+        key: new V2d(-1000, -1000),
+      },
+      {
+        pos: new V2d(-1000, -1000),
+        size: 150,
+        key: new V2d(0, 2000),
+      },
+    ],
+    bumpers: [
+      {
+        pos: new V2d(0, 1600),
+        size: 200,
+      },
+    ],
+    gravitators: [
+      {
+        pos: new V2d(0, 0),
+        size: 330,
+        growing: 2.2,
+      },
+    ],
+    goal: {
+      pos: new V2d(0, -1600),
       size: 250,
     },
   },
@@ -361,5 +408,5 @@ const SOUNDS = {
     "7BMHBGLaKBTuwmFgqVofHyVz1wiCrvdf8xgQ39XHASobu9rantMsWr5wawVZMumNzXW8kVGVHnvB3vdJcUC9qApp51J8op5jjVAS5rjGE4tKjHiiy6EMx2vCw",
     "7BMHBGLaKBTuwmFgqVofHyT1QJZHnS9J324SMBLjDiyf61KPWgJVeGUmVNa8QvKuZwAydShrw7U39mt4TrgnM2ustvEudBCZopaEcyJbecVLVQHBrDMRa1P4j",
     "7BMHBGLaKBTuwmFgqVofHyTNxq3UxkqxxZZJxQqCReTwQKqgXrbwC5Rkfs6cXAvPQv5pBtCegVwR2ARe2i4LyrNjpgk3w7kx14uaBsKdAvtf7sRMiecpVEG39",
-  ]
+  ],
 };
