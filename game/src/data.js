@@ -53,7 +53,7 @@ const LEVELS = [
     title: "Bump it up",
     desc: "Be careful with bumpers, they'll bump you and your fish away!",
     camera_dist: 2.0,
-    size: 2000,
+    size: 2300,
     fish: 9,
     finish: 0.7,
     spawn: new V2d(1700, 0),

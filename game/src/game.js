@@ -14,7 +14,7 @@ class Game {
     this.camera = new Camera(
       0,
       0,
-      .5,
+      0.5,
       this.canvas.width / 2,
       this.canvas.height / 2,
     );
@@ -22,12 +22,54 @@ class Game {
     this.initialized = false;
     this.currentLevel = 2;
     this.level = LEVELS[this.currentLevel];
+    this.playMusic(100);
+  }
+
+  playMusic(freq) {
+    // console.dir(this.music);
+    if (this.pzmusic == undefined) {
+      this.pzmusic = new Pizzicato.Sound(
+        {
+          source: "file",
+          options: {
+            path: "./music/main.ogg",
+            loop: true,
+          },
+        },
+        this.playMusic.bind(this),
+      );
+
+      this.musicLowPass = new Pizzicato.Effects.LowPassFilter({
+        frequency: 400,
+        peak: 10,
+      });
+
+      this.pzmusic.addEffect(this.musicLowPass);
+    } else {
+      this.setFreqLowPass(freq);
+      this.pzmusic.play();
+    }
+  }
+
+  setFreqLowPass(v) {
+    let value = parseFloat(v);
+
+    if (isFinite(value)) {
+      this.musicLowPass.filterNode.frequency.value = value;
+    }
+  }
+
+  stopMusic() {
+    if (this.pzmusic != undefined) {
+      this.pzmusic.stop();
+    }
   }
 
   initLevel() {
     // Map
     this.map = new GameMap(this.level);
     this.initialized = true;
+    this.playMusic(22050);
   }
 
   nextLevel() {
@@ -101,8 +143,9 @@ class Game {
   }
 
   gameOver() {
+    this.stopMusic();
     let that = this;
-    this.map.camera_dist_target = .8;
+    this.map.camera_dist_target = 0.8;
     co(function* () {
       that.particles.emit(
         that.map.fish.pos.x,
@@ -114,8 +157,7 @@ class Game {
       that.camera.shake(40, 200);
       yield 1.0;
       that.initialized = false;
-      // yield 1.0;
-      // that.initLevel();
+      that.playMusic(100);
     });
 
     playaudio(SOUNDS.game_over);
@@ -123,25 +165,25 @@ class Game {
 
   levelWin() {
     let that = this;
-    this.map.camera_dist_target = .8;
+    this.map.camera_dist_target = 0.8;
     this.camera.pos.set(this.map.goal.pos.x, this.map.goal.pos.y);
     co(function* () {
       for (let i = 0; i < 9; i++) {
         playaudio(SOUNDS.explosion);
         that.particles.emit(
-          that.camera.pos.x - (Math.random() * 800) + 400,
-          that.camera.pos.y - (Math.random() * 800) + 400,
+          that.camera.pos.x - Math.random() * 800 + 400,
+          that.camera.pos.y - Math.random() * 800 + 400,
           0.05,
           80,
           "#AAFFAA",
         );
         that.camera.shake(50, 300);
-        yield .3;
+        yield 0.3;
       }
       that.nextLevel();
 
       playaudio(SOUNDS.win);
+      this.playMusic(100);
     });
   }
-  
 }
