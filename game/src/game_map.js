@@ -198,7 +198,7 @@ class GameMap {
     ctx.fillStyle = "#aaaaaa";
     ctx.fillText(
       "Fish left to save: " + parseInt(Math.ceil((this.level.finish * this.level.fish) - this.fishSaved())),
-      65 + w * this.level.finish - 10,
+      115 + w * this.level.finish - 10,
       Game.instance.canvas.height - 33,
     );
   }
