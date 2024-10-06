@@ -21,11 +21,11 @@ class Game {
 
     this.initialized = false;
 
+    this.currentLevel = 0;
     const savedLevel = localStorage.getItem("fishrescue_level", "");
     if (savedLevel !== null) {
       this.currentLevel = parseInt(savedLevel);
     }
-    this.currentLevel = 7;
     this.level = LEVELS[this.currentLevel];
 
     this.frames = 0;
@@ -156,11 +156,11 @@ class Game {
         const x =
           t % 2 == 0
             ? -Math.pow(1 - this.menu_background, 3)
-            : Math.pow(1 - this.menu_background, 3) * 0.7;
+            : Math.pow(1 - this.menu_background, 3) * 0.4;
         this.ctx.fillText(
           text[t],
-          this.canvas.width / 2 + x * 180,
-          this.canvas.height / 2 + t * 200 - 50,
+          this.canvas.width / 2 + x * 220,
+          this.canvas.height / 2 + t * 210 - 50,
         );
       }
 
