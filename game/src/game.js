@@ -22,13 +22,22 @@ class Game {
     this.initialized = false;
     this.currentLevel = 0;
     this.level = LEVELS[this.currentLevel];
-    this.playMusic(22050);
 
     this.frames = 0;
 
-    this.menu = true;
-    this.menu_background = 1;
-    this.menu_moving = false;
+    this.goToMenu();
+  }
+
+  goToMenu() {
+    let that = this;
+    co(function*() {
+      that.playMusic(22050);
+      that.menu = true;
+      that.menu_background = 1;
+      that.menu_moving = true;
+      yield .1;
+      that.menu_moving = false;
+    });
   }
 
   playMusic(freq) {
@@ -96,7 +105,9 @@ class Game {
     }
 
     if (!this.initialized) {
-      if (this.input.anykey()) {
+      if (this.input.key(Input.ESCAPE)) {
+        this.goToMenu();
+      } else if (this.input.anykey()) {
         this.initLevel();
       }
     } else {
@@ -110,7 +121,7 @@ class Game {
     this.ctx.save();
 
     if (this.menu) {
-      this.ctx.fillStyle = `rgb(${this.menu_background * 45}, ${this.menu_background * 81}, ${this.menu_background * 100})`;
+      this.ctx.fillStyle = `rgb(${this.menu_background * 45}, ${this.menu_background * 87}, ${this.menu_background * 104})`;
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
       this.ctx.fillStyle = `rgb(${this.menu_background * 132}, ${this.menu_background * 43}, ${this.menu_background * 32})`;
@@ -132,7 +143,9 @@ class Game {
       const text = t.split("\n");
       for (let t in text) {
         const x =
-          t % 2 == 0 ? -Math.pow(1 - this.menu_background, 3) : Math.pow(1 - this.menu_background, 3) * .7;
+          t % 2 == 0
+            ? -Math.pow(1 - this.menu_background, 3)
+            : Math.pow(1 - this.menu_background, 3) * 0.7;
         this.ctx.fillText(
           text[t],
           this.canvas.width / 2 + x * 180,
@@ -146,7 +159,17 @@ class Game {
       this.ctx.fillText(
         "a game by Bruno Croci",
         this.canvas.width / 2,
-        this.canvas.height / 2 + 220 + Math.pow((1 - this.menu_background), 5) * 200,
+        this.canvas.height / 2 +
+          220 +
+          Math.pow(1 - this.menu_background, 5) * 200,
+      );
+
+      this.ctx.fillText(
+        "Press any key to play",
+        this.canvas.width / 2,
+        this.canvas.height / 2 +
+          370 +
+          Math.pow(1 - this.menu_background, 5) * 100,
       );
 
       return;
@@ -252,6 +275,7 @@ class Game {
   closeMenu() {
     let that = this;
     this.menu_moving = true;
+    playaudio(SOUNDS.menu_play);
     co(function* () {
       yield 0.2;
       let t = 60;

@@ -4,6 +4,7 @@ class Input {
   static UP = 38;
   static RIGHT = 39;
   static DOWN = 40;
+  static ESCAPE = 27;
 
   constructor(canvas) {
     let keys = {};
