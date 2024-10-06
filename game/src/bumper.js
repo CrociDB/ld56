@@ -15,6 +15,17 @@ class Bumper {
     ctx.arc(this.pos.x, this.pos.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
+    
+    const lines = 2;
+    const dist = this.target_size / lines;
+    for (let i = 0; i < 5; i++) {
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "#99A4C9";
+      ctx.beginPath();
+      ctx.arc(this.pos.x, this.pos.y, mod(i * dist + Game.instance.frames * 2, this.size), 0, 2 * Math.PI);
+      ctx.stroke();
+      ctx.closePath();
+    }
   }
 
   hit() {

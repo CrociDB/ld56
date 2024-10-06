@@ -199,7 +199,7 @@ class Fish {
 
     for (let gp of map.gravitators) {
       let dp = this.pos.dist(gp.pos);
-      if (dp < gp.size * .9) {
+      if (dp < gp.size * .95) {
         gp.hit();
         if (this.is_player) Game.instance.gameOver();
         this.die();

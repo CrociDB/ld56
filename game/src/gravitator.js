@@ -7,7 +7,7 @@ class Gravitator {
   update() {}
 
   render(ctx) {
-    ctx.fillStyle = "#1C0705";
+    ctx.fillStyle = "#210403";
     ctx.beginPath();
     ctx.arc(this.pos.x, this.pos.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
@@ -16,8 +16,8 @@ class Gravitator {
     const lines = 3;
     const dist = this.size / lines;
     for (let i = 0; i < 5; i++) {
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#A12712";
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#A37a64";
       ctx.beginPath();
       ctx.arc(this.pos.x, this.pos.y, mod(i * dist - Game.instance.frames, this.size), 0, 2 * Math.PI);
       ctx.stroke();

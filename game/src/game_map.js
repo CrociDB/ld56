@@ -133,6 +133,25 @@ class GameMap {
     ctx.arc(this.goal.pos.x, this.goal.pos.y, this.goal.size, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
+    
+    const lines = 5;
+    const dist = this.goal.size / lines;
+    for (let i = 0; i < 5; i++) {
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "#60BD82";
+      ctx.beginPath();
+      ctx.arc(this.goal.pos.x, this.goal.pos.y, mod(i * dist - Game.instance.frames, this.goal.size), 0, 2 * Math.PI);
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    for (let bp of this.bumpers) {
+      bp.render(ctx);
+    }
+
+    for (let gp of this.gravitators) {
+      gp.render(ctx);
+    }
 
     // player
     if (!this.fish.dead) {
@@ -143,14 +162,6 @@ class GameMap {
 
       this.fish.render(ctx);
       this.render_radar(this.fish, Game.instance.camera, ctx);
-    }
-
-    for (let bp of this.bumpers) {
-      bp.render(ctx);
-    }
-
-    for (let gp of this.gravitators) {
-      gp.render(ctx);
     }
   }
 
