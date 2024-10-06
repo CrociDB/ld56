@@ -20,7 +20,12 @@ class Game {
     );
 
     this.initialized = false;
+
     this.currentLevel = 0;
+    const savedLevel = localStorage.getItem("fishrescue_level", "");
+    if (savedLevel !== null) {
+      this.currentLevel = parseInt(savedLevel);
+    }
     this.level = LEVELS[this.currentLevel];
 
     this.frames = 0;
@@ -88,10 +93,17 @@ class Game {
   }
 
   nextLevel() {
-    this.playMusic(100);
-    this.currentLevel = (this.currentLevel + 1) % LEVELS.length;
-    this.level = LEVELS[this.currentLevel];
     this.initialized = false;
+
+    if (this.currentLevel++ == LEVELS.length - 1) {
+      this.currentLevel = 0;
+      this.goToMenu();
+    } else {
+      this.playMusic(100);
+    }
+
+    localStorage.setItem("fishrescue_level", "" + this.currentLevel);
+    this.level = LEVELS[this.currentLevel];
   }
 
   update_logic() {
