@@ -20,9 +20,11 @@ class Game {
     );
 
     this.initialized = false;
-    this.currentLevel = 2;
+    this.currentLevel = 3;
     this.level = LEVELS[this.currentLevel];
     this.playMusic(100);
+
+    this.frames = 0;
   }
 
   playMusic(freq) {
@@ -79,6 +81,8 @@ class Game {
   }
 
   update_logic() {
+    this.frames++;
+
     if (!this.initialized) {
       if (this.input.anykey()) {
         this.initLevel();

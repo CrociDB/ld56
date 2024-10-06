@@ -193,8 +193,19 @@ class Fish {
         bp.hit();
         let d = this.pos.sub(bp.pos).normalize();
         this.pos = bp.pos.add(d.muls(bp.size));
-        // this.vel = ;
         this.vel = this.vel.add(d.muls(14).add(this.vel.muls(-2)));
+      }
+    }
+
+    for (let gp of map.gravitators) {
+      let dp = this.pos.dist(gp.pos);
+      if (dp < gp.size * .9) {
+        gp.hit();
+        if (this.is_player) Game.instance.gameOver();
+        this.die();
+      } else if (dp < gp.size * 2.0) {
+        let d = this.pos.sub(gp.pos).normalize();
+        this.vel = this.vel.add(d.muls(-0.1));
       }
     }
 

@@ -90,6 +90,57 @@ const LEVELS = [
       size: 100,
     },
   },
+  {
+    title: "Gravitators",
+    desc: "Gravitators will... uhm, drag your fishes to death! Avoid them.",
+    camera_dist: 2.0,
+    size: 2600,
+    fish: 9,
+    finish: 0.7,
+    spawn: new V2d(-1700, 0),
+    fish_spawn_points: [
+      {
+        pos: new V2d(0, -1900),
+        size: 80,
+      },
+      {
+        pos: new V2d(0, 1900),
+        size: 80,
+      },
+      {
+        pos: new V2d(1900, 0),
+        size: 80,
+      },
+    ],
+    bumpers: [
+      {
+        pos: new V2d(-1000, 0),
+        size: 100,
+      },
+      {
+        pos: new V2d(1000, 0),
+        size: 100,
+      },
+      {
+        pos: new V2d(0, 1000),
+        size: 100,
+      },
+      {
+        pos: new V2d(0, -1000),
+        size: 100,
+      },
+    ],
+    gravitators: [
+      {
+        pos: new V2d(0, 0),
+        size: 650,
+      },
+    ],
+    goal: {
+      pos: new V2d(-1700, 0),
+      size: 100,
+    },
+  },
 ];
 
 const SOUNDS = {
@@ -122,13 +173,13 @@ const SOUNDS = {
   level_start: [
     "111117bootzA9BvfQ9ZcVLqmVQshYxH2CtWHR2KMote7tF95T6q7NzpackaRaf6vv84MuYPW5gkHQGucQ45324gC7DkMXhBjAzC4a3o8QCWHvenny8p2izns",
     "111117bootzA9BvfQ9ZcVMcc5pLizHocFGW2aTcw6Beg3Cb3eTqp4jnQPb41LMMivRoZzfjzp18fm6d5Rr7vBBG326D9jYbYttQH33LpkhGUnZiTsvZVQuPV",
-    "111117bootzA9BvfQ9ZcVLavhUPMoYFX47esavdHm2S1yfALjr7ugoPhjTE8tHQpXAkNb7oKWqGcHRD3cJsrBX7ETvDYomBNduL5FoyFGpHT2nV27pKmURMZ"
+    "111117bootzA9BvfQ9ZcVLavhUPMoYFX47esavdHm2S1yfALjr7ugoPhjTE8tHQpXAkNb7oKWqGcHRD3cJsrBX7ETvDYomBNduL5FoyFGpHT2nV27pKmURMZ",
   ],
   bump: [
     "57uBnWicKKRry4j8CpDE5CwB6D8Zxtg7htK1JLvvAvFaE7AFcUb9Yoe98ek3JEyMB3DL8NmqrX7YEYQsuncEvGoRLEc7KEfcvjxriDmnFUtc84twY35qQ1Wsh",
     "57uBnWicKKRry4j8CpDE5CwEoWstRE6ctypYtkUN7TMVTdJYNfW15wco6unFa1XReB2RLRH2jAMhg6nzqcCUYybTUGpt2BH9SczD747P4r2iyGAhySWRsLTRH",
     "57uBnWicKKRry4j8CpDE5Cwt4pTQMYFUobPzX8SFh8f9aFUkjieWWQybT1kSbxz74KXWvpVu6vTZZ788wy4MVMBet3GDKQU5Jv8rhCBRXgM7bRvjhfPeCZa5d",
-    "57uBnWY2Wro4WRLi6NEVXzwKwAvgcgzJZMWX75J6Y2rtnxcoWzcLCuUTJjPC4xvn7yGv7Mbnk4KDueV7MnbySxNAqWLGBe6bt8r55Yf7k4xeUCjN9cN7ChWhh"
+    "57uBnWY2Wro4WRLi6NEVXzwKwAvgcgzJZMWX75J6Y2rtnxcoWzcLCuUTJjPC4xvn7yGv7Mbnk4KDueV7MnbySxNAqWLGBe6bt8r55Yf7k4xeUCjN9cN7ChWhh",
   ],
   bump_fish: [
     "5EFnKuCaxbhBf8nij4gciH3txRBnuLAkSpe9R4JE1p9qGs8hK4RJ3JuNkW2WamvcPQiK5nwDDMpbbaDVrK8DA7SXyAhyEuTqmM9K19NBbv5arTqHf56TeckZe",

@@ -19,6 +19,10 @@ const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
 const clamp01 = (val) => clamp(val, 0, 1);
 const lerp = (a, b, t) => a + (b - a) * clamp01(t);
 
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
 const fmt = (value, f) => { return (f + value).slice(-f.length); };
 const nfmt = (v) => Math.floor(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const nfmt1 = (v) => v.toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

@@ -34,6 +34,14 @@ class GameMap {
       }
     }
 
+    // Gravitators
+    this.gravitators = [];
+    if (this.level.gravitators != undefined) {
+      for (let gp of this.level.gravitators) {
+        this.gravitators.push(new Gravitator(gp));
+      }
+    }
+
     this.health = 1;
     this.saved = 0;
     this.camera_dist_target = this.level.camera_dist;
@@ -82,6 +90,9 @@ class GameMap {
 
     for (let bp of this.bumpers) {
       bp.update();
+    }
+    for (let gp of this.gravitators) {
+      gp.update();
     }
 
     Game.instance.camera.dist = lerp(Game.instance.camera.dist, this.camera_dist_target, .05);
@@ -136,6 +147,10 @@ class GameMap {
 
     for (let bp of this.bumpers) {
       bp.render(ctx);
+    }
+
+    for (let gp of this.gravitators) {
+      gp.render(ctx);
     }
   }
 
