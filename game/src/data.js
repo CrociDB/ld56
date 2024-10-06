@@ -184,6 +184,73 @@ const LEVELS = [
       size: 100,
     },
   },
+  {
+    title: "Gravity or Grave",
+    desc: "Go slow and always be careful",
+    camera_dist: 2.7,
+    size: 3500,
+    fish: 16,
+    finish: 0.8,
+    spawn: new V2d(0, 0),
+    fish_spawn_points: [
+      {
+        pos: new V2d(-2000, -2000),
+        size: 100,
+      },
+      {
+        pos: new V2d(-2000, 2000),
+        size: 100,
+      },
+      {
+        pos: new V2d(2000, -2000),
+        size: 100,
+      },
+      {
+        pos: new V2d(2000, 2000),
+        size: 100,
+      },
+    ],
+    bumpers: [
+      {
+        pos: new V2d(-1500, -1500),
+        size: 300,
+      },
+      {
+        pos: new V2d(-1500, 1500),
+        size: 300,
+      },
+      {
+        pos: new V2d(1500, -1500),
+        size: 300,
+      },
+      {
+        pos: new V2d(1500, 1500),
+        size: 300,
+      },
+    ],
+    gravitators: [
+      {
+        pos: new V2d(-900, 0),
+        size: 250,
+      },
+      {
+        pos: new V2d(900, 0),
+        size: 250,
+      },
+      {
+        pos: new V2d(0, -900),
+        size: 250,
+      },
+      {
+        pos: new V2d(0, 900),
+        size: 250,
+      },
+    ],
+    goal: {
+      pos: new V2d(0, 0),
+      size: 250,
+    },
+  },
 ];
 
 const SOUNDS = {
