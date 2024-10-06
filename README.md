@@ -1,8 +1,10 @@
-a game for ld56
+A short relaxing game about fish.
+
+Play it on [itch.io](https://crocidb.itch.io/fish-rescue).
 
 ## Building and Running
 
-It needs Node and NPM installed:
+It needs `node` and `npm` installed:
 
 ```
 npm install -g http-server
