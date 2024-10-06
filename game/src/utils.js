@@ -69,17 +69,18 @@ const co = (f) => {
 const mobile = () => navigator.userAgent.match("Mobile");
 
 // Audio stuff
-const audio_player = [new Audio(), new Audio()];
-let audio_index = 0;
 let AUDIO = true;
+let AUDIO_VOLUME = 0.8;
+const SFX_VOLUME = 0.1;
 const playaudio = (a) => {
-    if (AUDIO) {
-        audio_index = (audio_index + 1) % audio_player.length;
+  if (AUDIO) {
+    if (!("count" in a)) a["count"] = 0;
+    else a["count"] = (a["count"] + 1) % a.length;
 
-        audio_player[audio_index].pause();
-        audio_player[audio_index].src = a[Math.floor(Math.random() * a.length)];
-        audio_player[audio_index].play();
-    }
+    let sound = sfxr.toAudio(a[a.count]);
+    sound.setVolume(AUDIO_VOLUME * SFX_VOLUME);
+    sound.play();
+  }
 };
 
 // Time

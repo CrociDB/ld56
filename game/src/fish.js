@@ -204,6 +204,9 @@ class Fish {
 
         let d = this.pos.dist(fishlist[f].pos);
         if (d < 70) {
+          if (strength != undefined) {
+            playaudio(SOUNDS.bump_fish);
+          }
           let s = strength != undefined ? strength : 0.8;
           fishlist[f].vel = fishlist[f].vel.add(
             fishlist[f].pos.sub(this.pos).normalize().muls(s),

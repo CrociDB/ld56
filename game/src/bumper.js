@@ -19,5 +19,6 @@ class Bumper {
 
   hit() {
     this.size = this.target_size * 1.3;
+    playaudio(SOUNDS.bump);
   }
 }

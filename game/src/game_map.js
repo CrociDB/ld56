@@ -37,6 +37,8 @@ class GameMap {
     this.health = 1;
     this.saved = 0;
     this.camera_dist_target = this.level.camera_dist;
+
+    playaudio(SOUNDS.level_start);
   }
 
   update() {
@@ -195,10 +197,12 @@ class GameMap {
   fishDie(fish) {
     Game.instance.particles.emit(fish.pos.x, fish.pos.y, 0.05, 20, "#FF7777");
     Game.instance.camera.shake(20, 100);
+    playaudio(SOUNDS.death);
   }
 
   fishSave(fish) {
     Game.instance.particles.emit(fish.pos.x, fish.pos.y, 0.1, 30, "#99FF99");
     Game.instance.camera.shake(20, 60);
+    playaudio(SOUNDS.fish_saved);
   }
 }

@@ -102,6 +102,7 @@ class Game {
 
   gameOver() {
     let that = this;
+    this.map.camera_dist_target = .8;
     co(function* () {
       that.particles.emit(
         that.map.fish.pos.x,
@@ -116,12 +117,17 @@ class Game {
       // yield 1.0;
       // that.initLevel();
     });
+
+    playaudio(SOUNDS.game_over);
   }
 
   levelWin() {
     let that = this;
+    this.map.camera_dist_target = .8;
+    this.camera.pos.set(this.map.goal.pos.x, this.map.goal.pos.y);
     co(function* () {
       for (let i = 0; i < 9; i++) {
+        playaudio(SOUNDS.explosion);
         that.particles.emit(
           that.camera.pos.x - (Math.random() * 800) + 400,
           that.camera.pos.y - (Math.random() * 800) + 400,
@@ -133,6 +139,9 @@ class Game {
         yield .3;
       }
       that.nextLevel();
+
+      playaudio(SOUNDS.win);
     });
   }
+  
 }
