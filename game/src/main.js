@@ -141,4 +141,11 @@ function main() {
   setInterval(update, (1.0 / 60) * 1000);
   requestAnimationFrame(render);
 }
-main();
+
+(function() {
+  let start = document.querySelector("#start");
+  start.addEventListener("click", function() {
+    start.remove();
+    main();
+  });
+})();

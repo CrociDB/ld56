@@ -1,5 +1,38 @@
 body {
   background: black;
+  user-select: none;
+}
+
+#start {
+  display: absolute;
+  top: 0;
+  left: 0;
+  background: #333333;
+  width: 100%;
+  height: 100%;
+  font-size: 100px;
+  font-family: "Amatic SC";
+  color: #777777;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+#start:hover {
+  color: #FFFFFF;
+  background: #444444;
+}
+
+#start:active {
+  color: #AAAAAA;
+  background: #111111;
+}
+
+#start>p {
+  padding-top: 200px;
 }
 
 #game {
