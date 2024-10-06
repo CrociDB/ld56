@@ -1,7 +1,7 @@
 const LEVELS = [
   {
     title: "Tutorial",
-    desc: "Using the directional keys, help the fish reach for salvation!",
+    desc: "Using the directional keys, help the fish reach for salvation!\nYou need a minimum amount of fish to be saved, it is displayed in the bar in the bottom",
     camera_dist: 1.7,
     size: 1000,
     fish: 6,

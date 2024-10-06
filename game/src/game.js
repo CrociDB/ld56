@@ -20,7 +20,7 @@ class Game {
     );
 
     this.initialized = false;
-    this.currentLevel = 4;
+    this.currentLevel = 0;
     this.level = LEVELS[this.currentLevel];
     this.playMusic(100);
 
@@ -113,12 +113,15 @@ class Game {
 
       this.ctx.font = "30px 'Amatic SC'";
       this.ctx.fillStyle = "#aaaaaa";
-      this.ctx.fillText(
-        this.level.desc,
-        this.canvas.width / 2,
-        this.canvas.height / 2,
-      );
+      let text = this.level.desc.split("\n");
+      for (let t in text) {
+        this.ctx.fillText(
+          text[t],
+          this.canvas.width / 2,
+          this.canvas.height / 2 + (t * 30),
+        );
 
+      }
       this.ctx.fillText(
         "Press any key to continue...",
         this.canvas.width / 2,
@@ -141,7 +144,7 @@ class Game {
   }
 
   renderHud() {
-    if (this.initialized) {
+    if (this.initialized && !this.map.fish.dead) {
       this.map.renderHud(this.ctx);
     }
   }

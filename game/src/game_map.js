@@ -8,7 +8,11 @@ class GameMap {
 
     let fc = 0;
     for (let sp of this.level.fish_spawn_points) {
-      for (let f = 0; f < this.level.fish / this.level.fish_spawn_points.length; f++) {
+      for (
+        let f = 0;
+        f < this.level.fish / this.level.fish_spawn_points.length;
+        f++
+      ) {
         this.fishes[fc] = new Fish();
         this.fishes[fc].color = "#D1798B";
         this.fishes[fc].pos.set(
@@ -24,7 +28,7 @@ class GameMap {
     this.fish.is_player = true;
     this.fish.pos.set(this.level.spawn.x, this.level.spawn.y);
     Game.instance.camera.pos = this.fish.pos.muls(1);
-    Game.instance.camera.dist = .5;
+    Game.instance.camera.dist = 0.5;
 
     // Bumpers
     this.bumpers = [];
@@ -85,7 +89,6 @@ class GameMap {
         this.fish.dead = true;
         Game.instance.levelWin();
       }
-
     }
 
     for (let bp of this.bumpers) {
@@ -95,7 +98,11 @@ class GameMap {
       gp.update();
     }
 
-    Game.instance.camera.dist = lerp(Game.instance.camera.dist, this.camera_dist_target, .05);
+    Game.instance.camera.dist = lerp(
+      Game.instance.camera.dist,
+      this.camera_dist_target,
+      0.05,
+    );
   }
 
   render_background(camera, ctx) {
@@ -133,14 +140,20 @@ class GameMap {
     ctx.arc(this.goal.pos.x, this.goal.pos.y, this.goal.size, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
-    
+
     const lines = 5;
     const dist = this.goal.size / lines;
     for (let i = 0; i < 5; i++) {
       ctx.lineWidth = 5;
       ctx.strokeStyle = "#60BD82";
       ctx.beginPath();
-      ctx.arc(this.goal.pos.x, this.goal.pos.y, mod(i * dist - Game.instance.frames, this.goal.size), 0, 2 * Math.PI);
+      ctx.arc(
+        this.goal.pos.x,
+        this.goal.pos.y,
+        mod(i * dist - Game.instance.frames, this.goal.size),
+        0,
+        2 * Math.PI,
+      );
       ctx.stroke();
       ctx.closePath();
     }
@@ -179,6 +192,14 @@ class GameMap {
       Game.instance.canvas.height - 50,
       10,
       20,
+    );
+
+    ctx.font = "20px 'Amatic SC'";
+    ctx.fillStyle = "#aaaaaa";
+    ctx.fillText(
+      "Fish left to save: " + parseInt(Math.ceil((this.level.finish * this.level.fish) - this.fishSaved())),
+      65 + w * this.level.finish - 10,
+      Game.instance.canvas.height - 33,
     );
   }
 
