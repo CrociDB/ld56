@@ -25,7 +25,7 @@ class Game {
     if (savedLevel !== null) {
       this.currentLevel = parseInt(savedLevel);
     }
-    this.currentLevel = 5;
+    this.currentLevel = 6;
     this.level = LEVELS[this.currentLevel];
 
     this.frames = 0;

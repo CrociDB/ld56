@@ -45,6 +45,20 @@ class GameMap {
         this.gravitators.push(new Gravitator(gp));
       }
     }
+    
+    // Cages
+    this.cages = [];
+    if (this.level.cages != undefined) {
+      for (let c of this.level.cages) {
+        let cage = new Cage(c);
+        this.cages.push(cage);
+        for (let f of this.fishes) {
+          if (cage.distToFish(f) < c.size) {
+            cage.addFish(f);
+          }
+        }
+      }
+    }
 
     this.health = 1;
     this.saved = 0;
@@ -94,8 +108,13 @@ class GameMap {
     for (let bp of this.bumpers) {
       bp.update();
     }
+
     for (let gp of this.gravitators) {
       gp.update();
+    }
+
+    for (let c of this.cages) {
+      c.update();
     }
 
     Game.instance.camera.dist = lerp(
@@ -164,6 +183,10 @@ class GameMap {
 
     for (let gp of this.gravitators) {
       gp.render(ctx);
+    }
+
+    for (let c of this.cages) {
+      c.render(ctx);
     }
 
     // player

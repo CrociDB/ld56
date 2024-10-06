@@ -19,6 +19,9 @@ class Fish {
     this.active = true;
     this.dead = false;
     this.saved = false;
+
+    this.in_cage = false;
+    this.my_cage = null;
   }
 
   render(ctx) {
@@ -106,8 +109,14 @@ class Fish {
     let [center, avoid] = this.center_avoidance(fishlist);
 
     center = center.x == center.y && center.x == 0 ? target : center;
-
     let t = center.add(avoid);
+
+    if (this.in_cage) {
+      target = center;
+      center = this.my_cage.pos;
+      t = center;
+    }
+
     if (this.pos.dist(target) < 1500) {
       t = target.muls(2).add(center).muls(0.3333).add(avoid);
     }
@@ -160,6 +169,18 @@ class Fish {
 
   update(map, strength) {
     if (!this.active) return;
+    if (this.in_cage) {
+      this.follow(this.my_cage.pos, map.fishes);
+      let delta = this.my_cage.pos.sub(this.pos);
+      let dist = Math.abs(delta.length());
+      if (dist >= this.my_cage.size) {
+        this.pos = this.my_cage.pos.add(
+          delta.normalize().muls(this.my_cage.size * -0.8),
+        );
+        this.vel = delta.normalize().muls(0.8);
+      }
+      this.vel.muls(0.01);
+    }
 
     let fishlist = map.fishes;
     this.forward = new V2d(0, 1);
@@ -178,7 +199,7 @@ class Fish {
         this.save();
       } else if (distanceGoal < map.goal.size * 3) {
         let delta = map.goal.pos.sub(this.pos);
-        this.vel = this.vel.add(delta.muls(0.0004));
+        if (!this.in_cage) this.vel = this.vel.add(delta.muls(0.0004));
       }
     } else {
       if (this.pos.length() >= map.size) {
@@ -187,31 +208,51 @@ class Fish {
       }
     }
 
-    for (let bp of map.bumpers) {
-      let dp = this.pos.dist(bp.pos);
-      if (dp < bp.size) {
-        bp.hit();
-        let d = this.pos.sub(bp.pos).normalize();
-        this.pos = bp.pos.add(d.muls(bp.size));
-        this.vel = this.vel.add(d.muls(14).add(this.vel.muls(-2)));
+    if (!this.in_cage) {
+      for (let bp of map.bumpers) {
+        let dp = this.pos.dist(bp.pos);
+        if (dp < bp.size) {
+          bp.hit();
+          let d = this.pos.sub(bp.pos).normalize();
+          this.pos = bp.pos.add(d.muls(bp.size));
+          this.vel = this.vel.add(d.muls(14).add(this.vel.muls(-2)));
+        }
       }
-    }
 
-    for (let gp of map.gravitators) {
-      let dp = this.pos.dist(gp.pos);
-      if (dp < gp.size * .95) {
-        gp.hit();
-        if (this.is_player) Game.instance.gameOver();
-        this.die();
-      } else if (dp < gp.size * 2.0) {
-        let d = this.pos.sub(gp.pos).normalize();
-        this.vel = this.vel.add(d.muls(-0.1));
+      for (let c of map.cages) {
+        if (c.destroyed) continue;
+
+        let dp = this.pos.dist(c.pos);
+        if (dp < c.size) {
+          let d = this.pos.sub(c.pos).normalize();
+          this.pos = c.pos.add(d.muls(c.size));
+        }
+
+        if (!c.activated) {
+          dp = this.pos.dist(c.key);
+          if (dp < 80) {
+            c.hit();
+          }
+        }
+      }
+
+      for (let gp of map.gravitators) {
+        let dp = this.pos.dist(gp.pos);
+        if (dp < gp.size * 0.95) {
+          gp.hit();
+          if (this.is_player) Game.instance.gameOver();
+          this.die();
+        } else if (dp < gp.size * 2.0) {
+          let d = this.pos.sub(gp.pos).normalize();
+          this.vel = this.vel.add(d.muls(-0.1));
+        }
       }
     }
 
     if (fishlist != undefined) {
       for (let f in fishlist) {
         if (fishlist[f] == this || !fishlist[f].active) continue;
+        if (fishlist[f].in_cage != this.in_cage) continue;
 
         let d = this.pos.dist(fishlist[f].pos);
         if (d < 70) {

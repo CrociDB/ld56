@@ -255,6 +255,56 @@ const LEVELS = [
       size: 250,
     },
   },
+  {
+    title: "Free them!",
+    desc: "The fish are locked in cages. You need to find the key to free open it and then free them.",
+    camera_dist: 1.5,
+    size: 1600,
+    fish: 5,
+    finish: 0.8,
+    spawn: new V2d(-1200, 0),
+    fish_spawn_points: [
+      {
+        pos: new V2d(-300, 0),
+        size: 100,
+      },
+    ],
+    cages: [
+      {
+        pos: new V2d(-300, 0),
+        size: 200,
+        key: new V2d(800, 0),
+      },
+    ],
+    bumpers: [
+    ],
+    gravitators: [
+      {
+        pos: new V2d(-400, -800),
+        size: 120,
+        growing: 2.5,
+      },
+      {
+        pos: new V2d(-400, 800),
+        size: 120,
+        growing: 2.5,
+      },
+      {
+        pos: new V2d(400, -800),
+        size: 120,
+        growing: 2.5,
+      },
+      {
+        pos: new V2d(400, 800),
+        size: 120,
+        growing: 2.5,
+      },
+    ],
+    goal: {
+      pos: new V2d(-1200, 0),
+      size: 250,
+    },
+  },
 ];
 
 const SOUNDS = {
@@ -301,5 +351,15 @@ const SOUNDS = {
   ],
   menu_play: [
     "57uBnWUi2thMCbDyK7mRMtU984JPJyKWqJp4DmDz3aT8uJ4bYRWobrYtJEUTBB5qzNKbzEFqa31vBiL5WcLJQrCnNN4VJ7u88yrp7awv62TECitSN2CnZntZm",
+  ],
+  key_picked: [
+    "5s8ueJWjWFaC3pfDnMFUbtGyUQNpPspn91QRzC6HXDfxoQNAkAapCVyAztU9M8atDEmzQND9m6mKa3uXKS4xoyBtD3Bc1Ty2BsmQ8EXMisG5bNMbsfQdTBRKV",
+    "57uBnWU6AQQnGBBAA5VQ25aVyPwYmyLRW4MvjKPVpM6PK9Nqc5x8Uo5ruPC64714NSnPhbv2UZoewWpkbWXTYKYv8AEfv1p6aeYdKwp48zJ2sppA2bxhxPQYX",
+    "5s8ueJWjWFaC3pfDnMFUbtFA79sUmCZA1DGTsKykL9vXDxb1GCPz5vfqdhfTB5akW89j3Hq8kMtvF26hKN8wAh2Lk9rskH3M6Rgf2wcscoGxRY3vZezj7yiYP",
+  ],
+  cage_destroyed: [
+    "7BMHBGLaKBTuwmFgqVofHyVz1wiCrvdf8xgQ39XHASobu9rantMsWr5wawVZMumNzXW8kVGVHnvB3vdJcUC9qApp51J8op5jjVAS5rjGE4tKjHiiy6EMx2vCw",
+    "7BMHBGLaKBTuwmFgqVofHyT1QJZHnS9J324SMBLjDiyf61KPWgJVeGUmVNa8QvKuZwAydShrw7U39mt4TrgnM2ustvEudBCZopaEcyJbecVLVQHBrDMRa1P4j",
+    "7BMHBGLaKBTuwmFgqVofHyTNxq3UxkqxxZZJxQqCReTwQKqgXrbwC5Rkfs6cXAvPQv5pBtCegVwR2ARe2i4LyrNjpgk3w7kx14uaBsKdAvtf7sRMiecpVEG39",
   ]
 };
