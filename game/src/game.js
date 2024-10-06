@@ -20,7 +20,7 @@ class Game {
     );
 
     this.initialized = false;
-    this.currentLevel = 4;
+    this.currentLevel = 0;
     this.level = LEVELS[this.currentLevel];
     this.playMusic(100);
 
@@ -118,9 +118,8 @@ class Game {
         this.ctx.fillText(
           text[t],
           this.canvas.width / 2,
-          this.canvas.height / 2 + (t * 30),
+          this.canvas.height / 2 + t * 30,
         );
-
       }
       this.ctx.fillText(
         "Press any key to continue...",
@@ -171,10 +170,14 @@ class Game {
   }
 
   levelWin() {
+    this.stopMusic();
+    playaudio(SOUNDS.win);
     let that = this;
-    this.map.camera_dist_target = 0.8;
     this.camera.pos.set(this.map.goal.pos.x, this.map.goal.pos.y);
     co(function* () {
+      yield 0.2;
+      that.map.camera_dist_target = 0.8;
+      yield 0.1;
       for (let i = 0; i < 9; i++) {
         playaudio(SOUNDS.explosion);
         that.particles.emit(
@@ -188,9 +191,7 @@ class Game {
         yield 0.3;
       }
       that.nextLevel();
-
-      playaudio(SOUNDS.win);
-      this.playMusic(100);
+      that.playMusic(100);
     });
   }
 }
