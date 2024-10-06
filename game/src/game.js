@@ -46,7 +46,6 @@ class Game {
   }
 
   playMusic(freq) {
-    console.dir(freq);
     if (this.pzmusic == undefined) {
       this.pzmusic = new Pizzicato.Sound(
         {
@@ -196,7 +195,7 @@ class Game {
       this.ctx.fillStyle = "#ffaaaa";
       this.ctx.textAlign = "center";
       this.ctx.fillText(
-        this.level.title,
+        `${this.currentLevel+1}. ${this.level.title}`,
         this.canvas.width / 2,
         this.canvas.height / 2 - 40,
       );

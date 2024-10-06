@@ -201,6 +201,14 @@ class GameMap {
       115 + w * this.level.finish - 10,
       Game.instance.canvas.height - 33,
     );
+    
+    ctx.font = "40px 'Spicy Rice'";
+    ctx.fillStyle = "#aaaaaa";
+    ctx.fillText(
+      `${Game.instance.currentLevel + 1}`,
+      Game.instance.canvas.width / 2,
+      60,
+    );
   }
 
   render_radar(player, camera, ctx) {
