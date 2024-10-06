@@ -2,7 +2,7 @@ const LEVELS = [
   {
     title: "Tutorial",
     desc: "Using the directional keys, help the fish reach for salvation!\nYou need a minimum amount of fish to be saved, it is displayed in the bar in the bottom",
-    camera_dist: 1.7,
+    camera_dist: 1.5,
     size: 1000,
     fish: 6,
     finish: 0.5,
@@ -93,7 +93,7 @@ const LEVELS = [
   {
     title: "Gravitators",
     desc: "Gravitators will... uhm, drag your fishes to death! Avoid them.",
-    camera_dist: 2.0,
+    camera_dist: 2.1,
     size: 2600,
     fish: 9,
     finish: 0.7,
@@ -144,10 +144,10 @@ const LEVELS = [
   {
     title: "Double Gravity",
     desc: "Can they cancel each other?",
-    camera_dist: 2.0,
+    camera_dist: 2.2,
     size: 2600,
     fish: 12,
-    finish: 0.7,
+    finish: 0.6,
     spawn: new V2d(0, 2100),
     fish_spawn_points: [
       {
