@@ -2,7 +2,7 @@ const LEVELS = [
   {
     title: "Tutorial",
     desc: "Using the directional keys, help the fish reach for salvation!\nYou need a minimum amount of fish to be saved, it is displayed in the bar in the bottom",
-    camera_dist: 1.5,
+    camera_dist: 1.3,
     size: 1000,
     fish: 6,
     finish: 0.5,
@@ -24,7 +24,7 @@ const LEVELS = [
   },
   {
     title: "Find them",
-    desc: "If they're not close, you need to go find them",
+    desc: "If they're not close, you need to go find them.\nThey'll follow you, but don't get too far or they'll lose you.",
     camera_dist: 2.3,
     size: 2600,
     fish: 9,
@@ -92,7 +92,7 @@ const LEVELS = [
   },
   {
     title: "Gravitators",
-    desc: "Gravitators will... uhm, drag your fishes to death! Avoid them.",
+    desc: "Gravitators will... uhm, pull your fishes to death! Avoid them at all cost.",
     camera_dist: 2.1,
     size: 2600,
     fish: 9,
@@ -312,10 +312,10 @@ const LEVELS = [
   {
     title: "Cages all around",
     desc: "More fish are locked, hurry, save them!",
-    camera_dist: 2.0,
+    camera_dist: 2.5,
     size: 2200,
-    fish: 12,
-    finish: 0.8,
+    fish: 15,
+    finish: 0.7,
     spawn: new V2d(0, -1600),
     fish_spawn_points: [
       {
@@ -324,6 +324,10 @@ const LEVELS = [
       },
       {
         pos: new V2d(-1000, -1000),
+        size: 100,
+      },
+      {
+        pos: new V2d(1000, 1000),
         size: 100,
       },
     ],
@@ -338,11 +342,24 @@ const LEVELS = [
         size: 150,
         key: new V2d(0, 2000),
       },
+      {
+        pos: new V2d(1000, 1000),
+        size: 150,
+        key: new V2d(1000, -1000),
+      },
     ],
     bumpers: [
       {
-        pos: new V2d(0, 1600),
-        size: 200,
+        pos: new V2d(0, 1500),
+        size: 180,
+      },
+      {
+        pos: new V2d(-300, 1750),
+        size: 180,
+      },
+      {
+        pos: new V2d(300, 1750),
+        size: 180,
       },
     ],
     gravitators: [
@@ -350,6 +367,10 @@ const LEVELS = [
         pos: new V2d(0, 0),
         size: 330,
         growing: 2.2,
+      },
+      {
+        pos: new V2d(1500, 0),
+        size: 250,
       },
     ],
     goal: {
