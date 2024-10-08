@@ -258,7 +258,7 @@ const LEVELS = [
   {
     title: "Free them!",
     desc: "The fish are locked in cages. You need to find the key to free open it and then free them.",
-    camera_dist: 1.5,
+    camera_dist: 1.7,
     size: 1600,
     fish: 5,
     finish: 0.8,
@@ -276,27 +276,32 @@ const LEVELS = [
         key: new V2d(800, 0),
       },
     ],
-    bumpers: [],
+    bumpers: [
+      {
+        pos: new V2d(100, 0),
+        size: 150,
+      }
+    ],
     gravitators: [
       {
-        pos: new V2d(-400, -800),
-        size: 120,
-        growing: 2.5,
+        pos: new V2d(-500, -800),
+        size: 150,
+        growing: 4.5,
       },
       {
-        pos: new V2d(-400, 800),
-        size: 120,
-        growing: 2.5,
+        pos: new V2d(-500, 800),
+        size: 150,
+        growing: 4.5,
       },
       {
-        pos: new V2d(400, -800),
-        size: 120,
-        growing: 2.5,
+        pos: new V2d(500, -800),
+        size: 150,
+        growing: 4.5,
       },
       {
-        pos: new V2d(400, 800),
-        size: 120,
-        growing: 2.5,
+        pos: new V2d(500, 800),
+        size: 150,
+        growing: 4.5,
       },
     ],
     goal: {
