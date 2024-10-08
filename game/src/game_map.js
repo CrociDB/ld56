@@ -274,13 +274,13 @@ class GameMap {
   // FX and stuff
   fishDie(fish) {
     Game.instance.particles.emit(fish.pos.x, fish.pos.y, 0.05, 20, "#FF7777");
-    Game.instance.camera.shake(20, 100);
+    Game.instance.camera.shake(50, 100);
     playaudio(SOUNDS.death);
   }
 
   fishSave(fish) {
     Game.instance.particles.emit(fish.pos.x, fish.pos.y, 0.1, 30, "#99FF99");
-    Game.instance.camera.shake(20, 60);
+    Game.instance.camera.shake(30, 60);
     playaudio(SOUNDS.fish_saved);
   }
 }

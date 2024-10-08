@@ -75,7 +75,7 @@ const mobile = () => navigator.userAgent.match("Mobile");
 // Audio stuff
 let AUDIO = true;
 let AUDIO_VOLUME = 0.8;
-const SFX_VOLUME = 0.1;
+const SFX_VOLUME = 0.2;
 const playaudio = (a) => {
   if (AUDIO) {
     if (!("count" in a)) a["count"] = 0;

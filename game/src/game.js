@@ -36,7 +36,7 @@ class Game {
   goToMenu() {
     let that = this;
     co(function*() {
-      that.playMusic(22050);
+      that.playMusic(1000);
       that.menu = true;
       that.menu_background = 1;
       that.menu_moving = true;
@@ -241,6 +241,7 @@ class Game {
     this.stopMusic();
     let that = this;
     this.map.camera_dist_target = 0.8;
+    playaudio(SOUNDS.game_over);
     co(function* () {
       that.particles.emit(
         that.map.fish.pos.x,
@@ -249,13 +250,12 @@ class Game {
         100,
         "red",
       );
-      that.camera.shake(40, 200);
+      that.camera.shake(60, 400);
       yield 1.0;
       that.initialized = false;
       that.playMusic(100);
     });
 
-    playaudio(SOUNDS.game_over);
   }
 
   levelWin() {
@@ -292,6 +292,7 @@ class Game {
       let t = 60;
       for (let i = 0; i < t; i++) {
         that.menu_background = lerp(that.menu_background, 0, i / t);
+        if (i > 3) that.stopMusic();
         yield 0.04;
       }
       that.menu = false;
